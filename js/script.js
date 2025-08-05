@@ -1,175 +1,280 @@
-//typing efect
-
-
-const subtitle = document.querySelector('p') // Cria uma variavel 
-
-function typeWrite(element) { // criando a funcao typewhrite piuchando a variavel
-	const textArray = element.innerHTML.split(''); // mudara o que esta escrito na variavel, o splits faz separacao de textos, Bruno.split separa as letras
-	element.innerHTML = ''; //comeco da frase, pega o elemento html, fazendo fucar vazio no comeco
-	textArray.forEach((letter, i) => { //chamando a variavel e dando atributo a ela um valor infinito, o parenteses com a flecha vira uma funcao
-		setTimeout (() => element.innerHTML += letter, i * 300); // settimeout da um tempo para o atributo ser executavel, o element tem a escrita mudada com um tempo, o += faz com que acresente as letras com o decorrer da frase, mantendo a letra anterior, o espacamento vazio tem um tempo de 300 milisegundos
-	});
-
-}
-
-typeWrite(subtitle) // chamar a funcao 
-
-// Carrossel
-    document.addEventListener('DOMContentLoaded', () => {
-      const galleryContainer = document.querySelector('.gallery-container');
-      const galleryControlsContainer = document.querySelector('.gallery-controls');
-      const galleryControls = ['Anterior', 'Próximo'];
-      const galleryItems = document.querySelectorAll('.gallery-item');
-
-      const galleryLinks = {
-        1: 'https://brunorobertocataneo.github.io/olhar_cultural/',
-        2: 'https://brunorobertocataneo.github.io/Calculadora/',
-        3: 'https://brunorobertocataneo.github.io/programming_memory_game/',
-        4: 'https://brunorobertocataneo.github.io/I.A-NA-EDUCACAO/',
-        5: 'https://brunorobertocataneo.github.io/ERS/'
-      };
-
-      class Carousel {
-        constructor(container, items, controls) {
-          this.carouselContainer = container;
-          this.carouselControls = controls;
-          this.carouselArray = [...items];
-          this.updateGallery();
-          this.setClickEvents();
-        }
-
-        updateGallery() {
-          this.carouselArray.forEach(el => {
-            el.classList.remove('gallery-item-1', 'gallery-item-2', 'gallery-item-3', 'gallery-item-4', 'gallery-item-5');
-          });
-
-          this.carouselArray.slice(0, 5).forEach((el, i) => {
-            el.classList.add(`gallery-item-${i + 1}`);
-          });
-        }
-
-        setCurrentState(control) {
-          if (control.className.includes('Anterior')) {
-            this.carouselArray.unshift(this.carouselArray.pop());
-          } else {
-            this.carouselArray.push(this.carouselArray.shift());
-          }
-          this.updateGallery();
-        }
-
-        setControls() {
-          this.carouselControls.forEach(control => {
-            const button = document.createElement('button');
-            button.className = `gallery-controls-${control}`;
-            button.innerText = control;
-            galleryControlsContainer.appendChild(button);
-          });
-        }
-
-        useControls() {
-          const triggers = [...galleryControlsContainer.children];
-          triggers.forEach(control => {
-            control.addEventListener('click', e => {
-              e.preventDefault();
-              this.setCurrentState(control);
-            });
-          });
-        }
-
-        setClickEvents() {
-          this.carouselArray.forEach((item, index) => {
-            item.replaceWith(item.cloneNode(true));
-          });
-          this.carouselArray = [...document.querySelectorAll('.gallery-item')];
-          this.carouselArray.forEach((item, index) => {
-            item.addEventListener('click', () => {
-              const link = galleryLinks[index + 1];
-              if (link) {
-                window.open(link, '_blank');
-              }
-            });
-          });
-        }
-      }
-
-      const exampleCarousel = new Carousel(galleryContainer, galleryItems, galleryControls);
-      exampleCarousel.setControls();
-      exampleCarousel.useControls();
-    });
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
 	
-// navbar
+	<link rel="stylesheet" type="text/css" href="css/extends.css">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.png" type="image/x-icons">
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
 
-// Mobile menu functionality
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+	<meta  charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
+	<script src="js/script.js" defer></script>
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    }
-});
+	<title>Bruno Roberto Cataneo</title>
+</head>
+<body>
 
-// Close mobile menu when resizing window to desktop
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    }
-});
+	<nav class="navbar">
+		<a href="index.html"><img src="assets/img/logo.png" class="logo"></a>
 
-// Smooth scrolling for all internal links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.offsetTop - 80; // Account for fixed navbar
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
+		<div class="hamburger">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
 
-// Add touch support for card flip on mobile
-const cards = document.querySelectorAll('.card');
-cards.forEach(card => {
-    card.addEventListener('touchstart', function() {
-        this.classList.toggle('flipped');
-    });
-    
-    card.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            e.preventDefault();
-            this.classList.toggle('flipped');
-        }
-    });
-});
+		<ul class="nav-menu">
+			<li><a href="#sobre">SOBRE</a></li>
+			<li><a href="#experiencias">EXPERIÊNCIAS</a></li>
+			<li><a href="#habilidades">HABILIDADES</a></li>
+			<li><a href="#certificados">CERTIFICADOS</a></li>
+			<li><a href="#projetos">PRINCIPAIS PROJETOS</a></li>
+			<li><button class="contat">
+				<a href="#contato">CONTATO</a>
+			</button></li>
+		</ul>
+	</nav>
+	<header>
+	<div class="container_header">
+		<div class="header1">
+			<div class="h2_content_title"><h2>BRUNO ROBERTO CATANEO</h2></div>
+			<div class="text1">
+				<p class="typping_effect">Desenvolvedor Web</p>
+				
+			</div>
+			
+		</div>
+
+		<div class="card">
+			<div class="front">
+				<img class="img_author" id="bruno" src="assets/img/logo.png"></img>
+			</div>
+			<div class="back">
+				<img class="img_author" id="bruno" src="assets/img/bruno.jpeg"></img>
+			</div>
+		</div>
+	</div>
+	</header>
+	<div class="container_body">
+		<div class="link" id="sobre">
+		<div class="container_subtitle">
+			<div class="line"></div>
+				<div class="subtitle_primary"><h2>Sobre mim</h2></div>
+			<div class="line"></div>
+		</div>
+			<div class="main_text1">
+				<p>
+					Meu nome é Bruno Roberto Cataneo e sou um entusiasta na área da computação. Meu interesse por tecnologia começou no meu primeiro curso de informática. Desde então, tenho buscado aprimoramento constante, aprofundando-me cada vez mais na área da programação.
+
+Iniciei o Bacharelado em Ciência da Computação no Instituto Federal Catarinense do campus de Videira, Santa Catarina, mas, em decorrência da busca por uma oportunidade de emprego maior, acabei mudando de universidade.
+
+Hoje, estudo na Universidade do Oeste Catarinense, e minha experiência no curso tem sido muito boa, aprendendo não só áreas que são voltadas para o meu interesse pessoal, mas também me ajudando a conhecer novas pessoas e adquirir novos aprendizados.
+
+Estou aberto a novas oportunidades de aprendizado e crescimento profissional e ansioso para fazer parte de projetos que façam a diferença.
+			</div>
+		</div>
+		<div class="link" id="experiencias"> 
+			<div class="container_subtitle">
+			<div class="line"></div>
+				<div class="subtitle_primary"><h2>Experiências</h2></div>
+			<div class="line"></div>
+		</div>
+		<div class="main_experiences">
+			<div class="subtitle_second"><h2>Cotação de seguros</h2></div>
+			<p>
+				Auxiliar de escritório, exercendo a função de auxiliar de cotação de seguros de: Automóvel, Residencial e Empresarial. Auxiliando também no setor respónsavel pela manutenção dos computadores.	
+			</p>
+			<div class="subtitle_second"><h2>2025 - ATUALMENTE</h2></div>
+		</div>
+		<div class="main_experiences">
+			<div class="subtitle_second"><h2>Automação</h2></div>
+			<p>
+				Auxiliar de manuntenção de automação de cortinas de aviários e chiqueiros.	
+			</p>
+			<div class="subtitle_second"><h2>2024 - 2024</h2></div>
+		</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Whap</h2></div>
+				<p>
+					Desenvolvedor frontend responsável por desenvolver soluções web. Principais tecnologias utilizadas: Wordpress
+				</p>
+				<div class="subtitle_second"><h2>2023 - 2024</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>SENAI - VIDEIRA</h2></div>
+				<p>
+					Aprendizagem Industrial em Programador e Sistemas da informação. Principais tecnologias: Javascript, Phyton (Machine Learning), Mysql, PHP
+				</p>
+				<div class="subtitle_second"><h2>2023</h2></div>	
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>SENAI - VIDEIRA</h2></div>
+				<p>
+					Aprendizagem Industrial em Montagem e Manutencao de Microcomputadores e Redes Locais. Principais conhecimentos: Montagem e Manutencao de Computadores, C + + (Machine Learning), Redes
+				</p>
+				<div class="subtitle_second"><h2>2021</h2></div>	
+			</div>
+		</div>
+		<div class="link" id="habilidades">
+			<div class="container_subtitle">
+				<div class="line"></div>
+				<div class="subtitle_primary"><h2>Habilidades</h2></div>
+				<div class="line"></div>
+			</div>
+			<div class="container_icons">
+				<div class="text_icons">
+					<P>HTML, CSS e Javascript, muito importante ter conhecimento sobre cada um deles para se estar no ambiente do desenvolvimento web.</P>
+					<p>O Python é uma linguagem de programação usada em aplicações da Web, desenvolvimento de software, big data, inteligência artificial (I.A) e machine learning (ML).</p>
+					<p> WordPress é um tipo de Gerenciador de Conteúdo muito popular e utilizado para o desenvolvimento de sites.  Este sistema de gerenciamento de conteúdo (CMS) de código aberto é versátil.</p>
+				</div>
+				<div class="icons">
+					<div class="item" id="bruno" style="background-image: url('assets/img/html_js_css.png');"></div>              
+					<div class="item" id="item_png" style="background-image: url('assets/img/phyton.png');"></div>
+					<div class="item" id="item_png" style="background-image: url('assets/img/wordpress.png');"></div> 
+				</div>
+				</div>
+			</div>
+			<div class="link" id="certificados">
+			<div class="container_subtitle">
+				<div class="line"></div>
+					<div class="subtitle_primary"><h2>Certificados</h2></div>
+				<div class="line"></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Bacharelado em Ciência da computação</h2></div>
+				<p>
+					Iniciado em Janeiro de 2025, com previsão de término para 2028.	
+				</p>
+				<div class="subtitle_second"><h2>Universidade do Oeste Catarinence - UNOESC</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Aprendizagem Industrial em Programador de Sistemas da Informação</h2></div>
+				<p>
+					Com duração de 800 horas, concluído no período de 26/01/2023 a 15/12/2023.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Aprendizagem Industrial de Suporte e Manuntenção em Microcomputadores e Redes Locais</h2></div>
+				<p>
+					Com duração de 800 horas, concluído no período de 27/01/2021 a 10/12/2021.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Design Gráfico</h2></div>
+				<p>
+					Com duração de 120 horas, concluído no período de 05/03/2020 a 05/03/2021.	
+				</p>
+				<div class="subtitle_second"><h2>INSTITUTO MEGA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Robótica</h2></div>
+				<p>
+					Com duração de 40 horas, concluído no período de 17/10/2019 a 12/12/2019.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Scrum</h2></div>
+				<p>
+					Com duração de 30 horas, concluído no período de 09/05/2023 a 09/05/2023.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Instalações Elétricas e Automação Residencial</h2></div>
+				<p>
+					Com duração de 40 horas, concluído no período de 08/08/2019 a 10/10/2019.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Hellow: Descobrindo o Mundo da Tecnologia</h2></div>
+				<p>
+					Com duração de 10 horas, concluído no período de 06/12/2021 a 17/12/2021.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Design Thinking</h2></div>
+				<p>
+					Com duração de 20 horas, concluído no período de 01/06/2023 a 01/06/2023.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Tenologias 4.0 no Contexto da Indústria</h2></div>
+				<p>
+					Com duração de 40 horas, concluído no período de 10/04/2023 a 13/04/2023.	
+				</p>
+				<div class="subtitle_second"><h2>SENAI VIDEIRA</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Maratona Tech</h2></div>
+				<p>
+					Com duração de 10 horas, concluído no período de 11/10/2023.	
+				</p>
+				<div class="subtitle_second"><h2>Maratona Tech</h2></div>
+			</div>
+			<div class="main_experiences">
+				<div class="subtitle_second"><h2>Fundamentos do Hardware do Computador</h2></div>
+				<p>
+					Com duração de 6 horas, concluído no dia 23/04/2025.	
+				</p>
+				<div class="subtitle_second"><h2>CISCO ACADEMY</h2></div>
+			</div>
+		</div>
+			<div class="container_body_2">
+				<div class="link" id="projetos"></div>
+				<div class="container_subtitle">
+					<div class="line"></div>
+						<div class="subtitle_primary"><h2>Principais Projetos</h2></div>
+					<div class="line"></div>	
+				</div>
+				<div class="gallery">
+					<div class="gallery-container">
+						<img class="gallery-item gallery-item-1"  src="assets/img/olhinhos.webp" data-index="1">
+						<img class="gallery-item gallery-item-2"  src="assets/img/calculadora.png" data-index="2">
+						<img class="gallery-item gallery-item-3"  src="assets/img/brain.png" data-index="3">  
+						<img class="gallery-item gallery-item-4"  src="assets/img/I.A.png" data-index="4">   
+						<img class="gallery-item gallery-item-5"  src="assets/img/ERS.png" data-index="5">   
+					</div>
+					<div class="gallery-controls"></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="link" id="contato">
+		<div class="container_footer">
+			<div class="socialicons">
+				<a href="https://www.facebook.com/bruno.cataneo.798/"><i class="fa-brands fa-facebook"></i></a>
+				<a href="https://www.instagram.com/bruno_r_cataneo/"><i class="fa-brands fa-instagram"></i></a>
+				<a href="https://github.com/brunorobertocataneo"><i class="fa-brands fa-github"></i></a>
+				<a href="https://wa.me/qr/VEIMALFZP7C6N1"><i class="fa-brands fa-whatsapp"></i></a>
+				<a href="mailto:bruno31.cataneo@gmail.com"><i class="fa-brands fa-google"></i></a>
+				<a href="https://www.linkedin.com/in/bruno-roberto-cataneo-0b38132a5/"><i class="fa-brands fa-linkedin"></i></a>
+			</div>
+		</div>
+		<div class="footernav">
+			<ul>
+				<a href="#sobre">SOBRE</a>
+				<a href="#experiencias">EXPERIÊNCIAS</a>
+				<a href="#habilidades">HABILIDADES</a>
+				<a href="#certificados">CERTIFICADOS</a>
+				<a href="#projetos">PROJETOS</a>
+			</ul>
+		</div>
+		<div class="footerbutton">
+			<p>Direitos &copy;2025; Bruno Roberto Cataneo</p>
+		</div>
+</div>
+</body>
+</html>
