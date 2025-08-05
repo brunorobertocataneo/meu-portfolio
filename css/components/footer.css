@@ -1,0 +1,316 @@
+.container_footer{
+	width: 100%;
+	padding: 1.5rem 1rem;
+	box-sizing: border-box;
+}
+
+.socialicons{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+}
+
+.socialicons a{
+	text-decoration: none;
+	padding: 8px;
+	background-color: white;
+	margin: 8px;
+	border-radius: 50%;
+	transition: all 0.3s ease;
+}
+
+.socialicons a i{
+	background-color: transparent;
+	font-size: 1.8rem;
+	color: black;
+	opacity: 0.9;
+}
+
+.socialicons a:hover{
+	background-color: #111;
+	transition: 0.5s;
+	transform: scale(1.1);
+}
+
+.socialicons a:hover i{
+	color: white;
+	transition: 0.5s;
+}
+
+.footernav{
+	display: flex;
+	justify-content: center;
+	margin: 1.5rem 0;
+}
+
+.footernav ul{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.footernav ul a{
+	color: white;
+	margin: 15px;
+	text-decoration: none;
+	font-size: 1.1rem;
+	opacity: 0.7;
+	transition: 0.5s;
+}
+
+.footernav ul a:hover{
+	opacity: 1;
+	color: #5FBDFF;
+}
+
+.footerbutton{
+	color: white;
+	margin: 0.8rem;
+	text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+	.container_footer {
+		padding: 1.3rem 0.8rem;
+	}
+	
+	.socialicons {
+		gap: 0.7rem;
+	}
+	
+	.socialicons a {
+		padding: 7px;
+		margin: 7px;
+	}
+	
+	.socialicons a i {
+		font-size: 1.7rem;
+	}
+	
+	.footernav {
+		margin: 1.3rem 0;
+	}
+	
+	.footernav ul a {
+		margin: 13px;
+		font-size: 1rem;
+	}
+	
+	.footerbutton {
+		margin: 0.7rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.container_footer {
+		padding: 1rem 0.5rem;
+	}
+	
+	.socialicons {
+		gap: 0.4rem;
+	}
+	
+	.socialicons a {
+		padding: 6px;
+		margin: 4px;
+	}
+	
+	.socialicons a i {
+		font-size: 1.4rem;
+	}
+	
+	.footernav {
+		margin: 1rem 0;
+	}
+	
+	.footernav ul {
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.footernav ul a {
+		width: 100%;
+		text-align: center;
+		margin: 8px;
+		font-size: 1rem;
+	}
+	
+	.footerbutton {
+		margin: 0.4rem;
+		font-size: 0.8rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.container_footer {
+		padding: 0.8rem 0.25rem;
+	}
+	
+	.socialicons {
+		gap: 0.2rem;
+	}
+	
+	.socialicons a {
+		padding: 5px;
+		margin: 3px;
+	}
+	
+	.socialicons a i {
+		font-size: 1.2rem;
+	}
+	
+	.footernav {
+		margin: 0.8rem 0;
+	}
+	
+	.footernav ul a {
+		margin: 6px;
+		font-size: 0.9rem;
+	}
+	
+	.footerbutton {
+		margin: 0.2rem;
+		font-size: 0.7rem;
+	}
+}
+
+/* iPhone SE and small devices */
+@media (max-width: 375px) {
+	.container_footer {
+		padding: 0.6rem 0.2rem;
+	}
+	
+	.socialicons {
+		gap: 0.15rem;
+	}
+	
+	.socialicons a {
+		padding: 4px;
+		margin: 2px;
+	}
+	
+	.socialicons a i {
+		font-size: 1rem;
+	}
+	
+	.footernav {
+		margin: 0.6rem 0;
+	}
+	
+	.footernav ul a {
+		margin: 4px;
+		font-size: 0.8rem;
+	}
+	
+	.footerbutton {
+		margin: 0.15rem;
+		font-size: 0.6rem;
+	}
+}
+
+/* iPhone 12/13/14 Pro Max and large phones */
+@media (min-width: 428px) and (max-width: 926px) {
+	.container_footer {
+		padding: 1.2rem 0.8rem;
+	}
+	
+	.socialicons {
+		gap: 0.6rem;
+	}
+	
+	.socialicons a {
+		padding: 7px;
+		margin: 6px;
+	}
+	
+	.socialicons a i {
+		font-size: 1.6rem;
+	}
+	
+	.footernav {
+		margin: 1.2rem 0;
+	}
+	
+	.footernav ul a {
+		margin: 12px;
+		font-size: 1.05rem;
+	}
+	
+	.footerbutton {
+		margin: 0.6rem;
+		font-size: 0.85rem;
+	}
+}
+
+/* Landscape orientation for phones */
+@media (max-height: 500px) and (orientation: landscape) {
+	.container_footer {
+		padding: 0.5rem 0.2rem;
+	}
+	
+	.socialicons {
+		gap: 0.1rem;
+	}
+	
+	.socialicons a {
+		padding: 3px;
+		margin: 2px;
+	}
+	
+	.socialicons a i {
+		font-size: 0.9rem;
+	}
+	
+	.footernav {
+		margin: 0.5rem 0;
+	}
+	
+	.footernav ul a {
+		margin: 3px;
+		font-size: 0.75rem;
+	}
+	
+	.footerbutton {
+		margin: 0.1rem;
+		font-size: 0.6rem;
+	}
+}
+
+/* iPhone 14 Pro Max specific */
+@media (width: 430px) and (height: 932px) {
+	.container_footer {
+		padding: 1rem 0.6rem;
+	}
+	
+	.socialicons {
+		gap: 0.5rem;
+	}
+	
+	.socialicons a {
+		padding: 6.5px;
+		margin: 5px;
+	}
+	
+	.socialicons a i {
+		font-size: 1.5rem;
+	}
+	
+	.footernav {
+		margin: 1rem 0;
+	}
+	
+	.footernav ul a {
+		margin: 10px;
+		font-size: 0.95rem;
+	}
+	
+	.footerbutton {
+		margin: 0.5rem;
+		font-size: 0.75rem;
+	}
+}
