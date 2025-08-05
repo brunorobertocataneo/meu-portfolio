@@ -25,7 +25,8 @@ typeWrite(subtitle) // chamar a funcao
         1: 'https://brunorobertocataneo.github.io/olhar_cultural/',
         2: 'https://brunorobertocataneo.github.io/Calculadora/',
         3: 'https://brunorobertocataneo.github.io/programming_memory_game/',
-        4: 'https://brunorobertocataneo.github.io/I.A-NA-EDUCACAO/'
+        4: 'https://brunorobertocataneo.github.io/I.A-NA-EDUCACAO/',
+        5: 'https://brunorobertocataneo.github.io/ERS/'
       };
 
       class Carousel {
@@ -106,5 +107,69 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
+    });
+});
+
+// Mobile menu functionality
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+});
+
+// Close mobile menu when resizing window to desktop
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+});
+
+// Smooth scrolling for all internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Add touch support for card flip on mobile
+const cards = document.querySelectorAll('.card');
+cards.forEach(card => {
+    card.addEventListener('touchstart', function() {
+        this.classList.toggle('flipped');
+    });
+    
+    card.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            this.classList.toggle('flipped');
+        }
     });
 });
